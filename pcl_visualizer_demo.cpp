@@ -39,17 +39,17 @@ pcl::visualization::PCLVisualizer::Ptr simpleVis (pcl::PointCloud<pcl::PointXYZ>
   // -----Open 3D viewer and add point cloud-----
   // --------------------------------------------
   pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
-  viewer->setBackgroundColor (0, 0, 0);
-  viewer->addPointCloud<pcl::PointXYZ> (cloud, "sample cloud");
-  viewer->setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 10, "sample cloud");
-  viewer->addCoordinateSystem (1.0);
+  viewer->setBackgroundColor (255, 255, 255);
+  pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color(cloud, 255, 0, 0);
+  viewer->addPointCloud<pcl::PointXYZ> (cloud, single_color, "sample cloud");
+  viewer->setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 15, "sample cloud");
   viewer->initCameraParameters ();
   pcl::PointXYZ basic_point;
   basic_point.x = 0;
   basic_point.y = 0;
   basic_point.z = 0;
-  viewer->addSphere (basic_point, 1, 0.5, 0.5, 0.0, "sphere");
-  viewer->setShapeRenderingProperties (pcl::visualization::PCL_VISUALIZER_OPACITY, 0.2, "sphere");
+  viewer->addSphere (basic_point, 1, 0.1, 0.1, 0.1, "sphere");
+  viewer->setShapeRenderingProperties (pcl::visualization::PCL_VISUALIZER_OPACITY, 0.5, "sphere");
   // pcl::PolygonMesh mesh;
   // pcl::io::loadPolygonFileSTL("../shpere.stl", mesh);
   // viewer->addPolygonMesh(mesh, "mesh_sphere");  
