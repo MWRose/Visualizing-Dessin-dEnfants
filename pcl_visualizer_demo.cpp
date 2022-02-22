@@ -43,7 +43,7 @@ pcl::visualization::PCLVisualizer::Ptr simpleVis (pcl::PointCloud<pcl::PointXYZ>
   pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color(cloud, 255, 0, 0);
   viewer->addPointCloud<pcl::PointXYZ> (cloud, single_color, "sample cloud");
   viewer->setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 15, "sample cloud");
-  viewer->initCameraParameters ();
+  viewer->addCoordinateSystem (1.0);
   pcl::PointXYZ basic_point;
   basic_point.x = 0;
   basic_point.y = 0;
@@ -336,7 +336,7 @@ main (int argc, char** argv)
       b += 12;
     }
   }
-    if (pcl::io::loadPCDFile<pcl::PointXYZ> ("test_pcd.pcd", *basic_cloud_ptr) == -1) //* load the file
+    if (pcl::io::loadPCDFile<pcl::PointXYZ> ("../juliaPCD.pcd", *basic_cloud_ptr) == -1) //* load the file
   {
     PCL_ERROR ("Couldn't read file test_pcd.pcd \n");
     return (-1);
