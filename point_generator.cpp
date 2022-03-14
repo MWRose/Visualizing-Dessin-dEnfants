@@ -6,8 +6,8 @@
 using namespace std;
 using cmplx = complex<long double>;
 
-const double h = 0.0001;
-const int n = 3;
+const double h = 0.000001;
+const int n = 5;
 const int black[2]{-1, 2};
 const int white[2]{-2, 1};
 
@@ -18,7 +18,7 @@ cmplx bMap(cmplx t)
 
 cmplx dt(cmplx t)
 {
-    return (cmplx(3, 0) * pow(t, 2));
+    return (cmplx(5, 0) * pow(t, 4));
 }
 
 double hcalc(cmplx t)
@@ -68,13 +68,13 @@ int rk2(vector<cmplx> &points, double initialQ, cmplx initialE, function<double(
     points.push_back(initialE);
     while (q < stop)
     {
-        cmplx m = cmplx(1,0) / dt(e);
+        cmplx m = cmplx(1, 0) / dt(e);
         double new_h = hcalc(e);
 
         double nextq = q + new_h;
         cmplx eHat = e + m * cmplx(new_h, 0);
-        cmplx n = cmplx(1,0) / dt(eHat);
-        cmplx nexte = e + (m + n) / cmplx(2, 0) * cmplx(new_h,0);
+        cmplx n = cmplx(1, 0) / dt(eHat);
+        cmplx nexte = e + (m + n) / cmplx(2, 0) * cmplx(new_h, 0);
 
         points.push_back(nexte);
         q = nextq;
@@ -83,14 +83,14 @@ int rk2(vector<cmplx> &points, double initialQ, cmplx initialE, function<double(
     }
     while (q > start)
     {
-        cmplx m = cmplx(1,0) / dt(e);
+        cmplx m = cmplx(1, 0) / dt(e);
         double new_h = hcalc(e);
 
         double nextq = q - new_h;
         cmplx eHat = e - m * cmplx(new_h, 0);
-        cmplx n = cmplx(1,0) / dt(eHat);
-        cmplx nexte = e - (m + n) / cmplx(2, 0) * cmplx(new_h,0);
-        
+        cmplx n = cmplx(1, 0) / dt(eHat);
+        cmplx nexte = e - (m + n) / cmplx(2, 0) * cmplx(new_h, 0);
+
         points.push_back(nexte);
         q = nextq;
         e = nexte;
@@ -134,9 +134,12 @@ int createCloud(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, vector<cmplx> &points
 int main(int argc, char *argv[])
 {
     vector<cmplx> midpoints = {
-        cmplx(-0.396850262992049868687926409, 0.6873648184993013131917),
-        cmplx(-0.39685026299204986868792640981, -0.687364818499301313191739598443),
-        cmplx(0.7937005259840997373758528196, 0)};
+        cmplx(0.269014918521185704585410204277269179132628921019573277086367947, 0.827942785987195408535269672744287830767876052483616065811332165),
+        cmplx(-0.70429020016924777415354521301714222862219163319357480120729773, 0.51169678248036692509229257895244838117096130879945932574129400),
+        cmplx(-0.70429020016924777415354521301714222862219163319357480120729773, -0.51169678248036692509229257895244838117096130879945932574129400),
+        cmplx(0.269014918521185704585410204277269179132628921019573277086367947, -0.827942785987195408535269672744287830767876052483616065811332165),
+        cmplx(0.8705505632961241391362700174797460989791254243480030482418595685, 0)
+        };
     vector<complex<long double>> points;
     pcl::PointCloud<pcl::PointXYZ>::Ptr basic_cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
     computePoints(points, midpoints, hcalc);
